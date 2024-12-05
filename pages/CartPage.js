@@ -16,6 +16,9 @@ class CartPage {
   async proceedToCheckout() {
       await this.page.click(this.checkoutButton);
   }
+  async getCartItems() {
+    return await this.page.locator(this.cartItems).count();
+}
 }
 
 module.exports = { CartPage };

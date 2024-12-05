@@ -1,6 +1,6 @@
 // tests/inventory.spec.js
 const { test, expect } = require('@playwright/test');
-const { InventoryPage } = require('../pages/InventoryPage');
+const { InventoryPage } = require('../pages/inventoryPage');
 const { CartPage } = require('../pages/CartPage');
 
 test.describe('Inventory List and Add to Cart Journey', () => {

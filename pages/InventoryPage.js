@@ -4,11 +4,12 @@ class InventoryPage {
       this.page = page;
       this.inventoryList = '.inventory_list'; // Selector for inventory list
       this.addToCartButtons = '.inventory_item button'; // Selector for Add to Cart buttons
-      (itemName) => `text=${itemName} >> ../button`;  // Button relative to item name
+     // (itemName) => `text=${itemName} >> ../button`;  // Button relative to item name
+      this.addToCartButton = (itemName) => `button[id*="add-to-cart-${itemName.toLowerCase().replace(/ /g, '-')}"]`;
       this.productNames = '.inventory_item_name'; // Selector for product names
       this.productPrices = '.inventory_item_price'; // Selector for product prices
       this.cartIcon = '.shopping_cart_link'; // Selector for the cart icon
-      this.addToCartButton = (itemName) => `text=${itemName} >> ../button`;  // Button relative to item name
+      //this.addToCartButton = (itemName) => `text=${itemName} >> ../button`;  // Button relative to item name
       this.cartBadge = '.shopping_cart_badge';
      // this.cartLink = '.shopping_cart_link';
   }
@@ -50,8 +51,11 @@ class InventoryPage {
   }
 
 // Add to cart functions
-  async addItemToCart(itemName) {
-    await this.page.click(this.addToCartButton(itemName));
+7
+async addItemToCart(itemName) {
+    const buttonSelector = this.addToCartButton(itemName);
+    await this.page.waitForSelector(buttonSelector, { state: 'visible' });  // Ensure it's visible
+    await this.page.click(buttonSelector);
 }
 
 async goToCart() {
