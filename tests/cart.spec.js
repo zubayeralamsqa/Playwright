@@ -1,6 +1,8 @@
 const { test, expect } = require('@playwright/test');
 const { InventoryPage } = require('../pages/inventoryPage');
 const { CartPage } = require('../pages/CartPage');
+const {ConfirmationPage} = require('../pages/ConfirmationPage');
+const {CheckoutPage} = require('../pages/CheckoutPage');
 
 test.describe('Add to Cart Feature', () => {
     
@@ -37,6 +39,7 @@ test.describe('Add to Cart Feature', () => {
         expect(cartItemsCount).toBe(2);
     });
 
+
     test('Negative: Verify no items in cart when nothing is added', async ({ page }) => {
         const inventoryPage = new InventoryPage(page);
         const cartPage = new CartPage(page);
@@ -49,5 +52,29 @@ test.describe('Add to Cart Feature', () => {
     test('Negative: Verify cart badge is not visible without adding any items', async ({ page }) => {
         const inventoryPage = new InventoryPage(page);
         await expect(page.locator(inventoryPage.cartBadge)).not.toBeVisible();
+    });
+    // Order creation and successful journey
+    test('Complete order journey from cart page', async ({ page }) => {
+        // Navigate to the cart page
+        await page.goto('https://www.saucedemo.com/cart.html');
+    
+        // Initialize Page Objects
+        const cartPage = new CartPage(page);
+        const inventoryPage = new InventoryPage(page);
+        const checkoutPage = new CheckoutPage(page);
+        const confirmationPage = new ConfirmationPage(page);
+    
+        // Proceed to checkout
+        await cartPage.proceedToCheckout();
+    
+        // Fill shipping details
+        await checkoutPage.enterCheckoutInfo('John', 'Doe', '12345');
+    
+        // Complete the order
+        await checkoutPage.completeOrder();
+    
+        // Validate confirmation message
+        const confirmationMessage = await confirmationPage.getConfirmationMessage();
+        expect(confirmationMessage).toBe('Thank you for your order!');
     });
 });
