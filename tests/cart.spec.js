@@ -71,7 +71,8 @@ test.describe('Add to Cart Feature', () => {
         await checkoutPage.enterCheckoutInfo('John', 'Doe', '12345');
     
         // Complete the order
-        await checkoutPage.completeOrder();
+        await checkoutPage.completeOrder(); 
+        //await page.pause();
     
         // Validate confirmation message
         const confirmationMessage = await confirmationPage.getConfirmationMessage();
