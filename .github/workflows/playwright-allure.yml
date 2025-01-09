@@ -1,7 +1,6 @@
 name: Playwright Automation with Allure Report
 
 on:
-
   push:
     branches:
       - 'feature/master'
