@@ -1,7 +1,7 @@
 name: Playwright Automation with Allure Report
 
 on:
-  workflow_dispatch: # Allows manual triggering
+
   push:
     branches:
       - 'feature/master'
