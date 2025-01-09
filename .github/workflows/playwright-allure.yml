@@ -1,9 +1,10 @@
 name: Playwright Automation with Allure Report
+
 on:
   workflow_dispatch: # Allows manual triggering
   push:
     branches:
-      - 'feature/master' # Run only on feature branches
+      - 'feature/master'
 
 jobs:
   playwright-tests:
@@ -18,29 +19,34 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Adjust Node.js version if needed
+          node-version: '18'
 
       # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run Playwright tests and generate Allure results
+      # Step 4: Fix Playwright permissions
+      - name: Fix Playwright permissions
+        run: chmod +x ./node_modules/.bin/playwright
+
+      # Step 5: Install Playwright Browsers
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      # Step 6: Run Playwright tests
       - name: Run Playwright tests
-        run: |
-          npx playwright install
-          npx playwright test -- --reporter=line,allure-playwright
+        run: npx playwright test -- --reporter=line,allure-playwright
 
-      # Step 5: Install Allure for generating reports
+      # Step 7: Install Allure
       - name: Install Allure
-        run: |
-          npm install -g allure-commandline --save-dev
+        run: npm install -g allure-commandline --save-dev
 
-      # Step 6: Generate Allure HTML report
+      # Step 8: Generate Allure Report
       - name: Generate Allure report
         run: allure generate --clean
 
-      # Step 7: Upload Allure report as GitHub Action artifact (optional)
-      - name: Upload Allure report
+      # Step 9: Upload Allure Report (Optional)
+      - name: Upload Allure Report
         uses: actions/upload-artifact@v3
         with:
           name: allure-report
