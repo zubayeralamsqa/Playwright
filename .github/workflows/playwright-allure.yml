@@ -13,36 +13,5 @@ jobs:
 
 
       # Step 2: Set up Node.js environment
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 4: Fix Playwright permissions
-      - name: Fix Playwright permissions
-        run: chmod +x ./node_modules/.bin/playwright
-
-
-
-      # Step 6: Run Playwright tests
-      - name: Run Playwright tests
-        run: npx playwright test -- --reporter=line,allure-playwright
-
-      # Step 7: Install Allure
-      - name: Install Allure
-        run: npm install -g allure-commandline --save-dev
-
-      # Step 8: Generate Allure Report
-      - name: Generate Allure report
-        run: allure generate --clean
-
-      # Step 9: Upload Allure Report (Optional)
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: allure-report
-          path: ./allure-report
+      - name: print hello world
+        run : "Hello world"
