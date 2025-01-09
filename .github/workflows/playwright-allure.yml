@@ -3,7 +3,7 @@ name: Playwright Automation with Allure Report
 on:
   push:
     branches:
-      - 'feature/orderjourney' # Run only on feature branches
+      - 'feature/master' # Run only on feature branches
 
 jobs:
   playwright-tests:
