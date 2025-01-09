@@ -22,7 +22,9 @@ class InventoryPage {
   // Check if inventory list is visible
   async isInventoryListVisible() {
       await this.page.waitForSelector(this.inventoryList);
+      console.log(this.inventoryList);
       return await this.page.isVisible(this.inventoryList);
+      
   }
 
   // Check if product details are displayed
