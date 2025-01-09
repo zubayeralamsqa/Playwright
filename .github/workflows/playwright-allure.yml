@@ -1,0 +1,47 @@
+name: Playwright Automation with Allure Report
+
+on:
+  push:
+    branches:
+      - 'feature/orderjourney' # Run only on feature branches
+
+jobs:
+  playwright-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Adjust Node.js version if needed
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run Playwright tests and generate Allure results
+      - name: Run Playwright tests
+        run: |
+          npx playwright install
+          npx playwright test -- --reporter=line,allure-playwright
+
+      # Step 5: Install Allure for generating reports
+      - name: Install Allure
+        run: |
+          npm install -g allure-commandline --save-dev
+
+      # Step 6: Generate Allure HTML report
+      - name: Generate Allure report
+        run: allure generate --clean
+
+      # Step 7: Upload Allure report as GitHub Action artifact (optional)
+      - name: Upload Allure report
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: ./allure-report
