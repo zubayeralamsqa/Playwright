@@ -25,7 +25,9 @@ jobs:
 
       # Step 4: Ensure Playwright is installed globally
       - name: Install Playwright globally
-        run: npx playwright install
+        run: |
+          chmod +x ./node_modules/.bin/playwright
+          npx playwright install
 
       # Step 5: Run Playwright tests
       - name: Run Playwright tests
