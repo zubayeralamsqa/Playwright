@@ -38,6 +38,5 @@ test.describe('SauceDemo Login Tests using POM', () => {
     await loginPage.login('locked_out_user', 'secret_sauce');
     const errorMessage = await loginPage.getErrorMessage();
     expect(errorMessage).toBe('Epic sadface: Sorry, this user has been locked out.');
-    //console.log("Test")
   });
 });
