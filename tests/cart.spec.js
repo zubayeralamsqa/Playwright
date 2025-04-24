@@ -24,6 +24,7 @@ test.describe('Add to Cart Feature', () => {
         await inventoryPage.goToCart();
         const cartItemsCount = await cartPage.getCartItems();
         expect(cartItemsCount).toBe(1);
+        console.log(cartItemsCount);
     });
 
     test('Positive: Add multiple items to cart and verify the count', async ({ page }) => {
